@@ -90,11 +90,11 @@ export const users = {
 
 **Tasks:**
 
-- [ ] Create mock data file (copy-paste provided code)
-- [ ] Set up BrowserRouter in main.jsx (2 line change)
-- [ ] Create 4 basic `page` components (simple copy-paste templates)
-- [ ] Add basic routes in App.jsx
-- [ ] Create Navigation `component` with Links
+- [X] Create mock data file (copy-paste provided code)
+- [X] Set up BrowserRouter in main.jsx (2 line change)
+- [X] Create 4 basic `page` components (simple copy-paste templates)
+- [X] Add basic routes in App.jsx
+- [X] Create Navigation `component` with Links
 
 **Pre-Built Templates (Copy-Paste):**
 
@@ -145,10 +145,10 @@ export default Navigation
 
 **Tasks:**
 
-- [ ] Update Movies page to show movie list from data
-- [ ] Add Links to individual movies
-- [ ] Create MovieDetail page with useParams
-- [ ] Add basic navigation between pages
+- [X] Update Movies page to show movie list from data
+- [X] Add Links to individual movies
+- [X] Create MovieDetail page with useParams
+- [X] Add basic navigation between pages
 
 **Simple Code (Copy-Paste):**
 
@@ -203,10 +203,10 @@ export default MovieDetail
 
 **Tasks:**
 
-- [ ] Add basic search to Movies page
-- [ ] Use useState for search input
-- [ ] Filter movies by title only
-- [ ] No URL updates needed (keep it simple)
+- [X] Add basic search to Movies page
+- [X] Use useState for search input
+- [X] Filter movies by title only
+- [X] No URL updates needed (keep it simple)
 
 **Simple Code:**
 
@@ -251,10 +251,10 @@ export default Movies;
 
 **Tasks:**
 
-- [ ] Create simple login form
-- [ ] Add useState for username/password
-- [ ] Use basic if/else for authentication
-- [ ] Add useNavigate for redirect after login
+- [X] Create simple login form
+- [X] Add useState for username/password
+- [X] Use basic if/else for authentication
+- [X] Add useNavigate for redirect after login
 
 **Simple Code:**
 
