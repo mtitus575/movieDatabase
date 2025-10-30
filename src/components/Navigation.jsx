@@ -1,10 +1,15 @@
 import { NavLink } from "react-router-dom";
-function Navigation() {
+
+function Navigation({ loggedIn, isAdmin, setLoggedIn }) {
+  function handleLogout() {
+    setLoggedIn(false);
+  }
+
   const navStyles = {
     border: "1px solid",
     padding: ".2rem .5rem",
     borderRadius: 7,
-    margin: '0 .5rem',
+    margin: "0 .5rem",
   };
 
   const activeStyle = {
@@ -19,6 +24,15 @@ function Navigation() {
 
   return (
     <nav>
+      {loggedIn && (
+        <NavLink
+          onClick={handleLogout}
+          to={`/`}
+          style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+        >
+          Logout
+        </NavLink>
+      )}
       <NavLink
         to="/"
         style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
@@ -31,12 +45,30 @@ function Navigation() {
       >
         Movies
       </NavLink>
-      <NavLink
-        to="/login"
-        style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
-      >
-        Login
-      </NavLink>
+      {!loggedIn && (
+        <NavLink
+          to="/login"
+          style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+        >
+          Login
+        </NavLink>
+      )}
+      {loggedIn && !isAdmin && (
+        <NavLink
+          to="dashboard"
+          style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+        >
+          Dashboard
+        </NavLink>
+      )}
+      {loggedIn && isAdmin && (
+        <NavLink
+          to="admin"
+          style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+        >
+          Admin
+        </NavLink>
+      )}
     </nav>
   );
 }

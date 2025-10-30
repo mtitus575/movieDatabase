@@ -26,6 +26,11 @@ function Movies() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+      <div>
+        <span>
+          Available titles: <strong>{filteredMovies.length}</strong>
+        </span>
+      </div>
 
       <div
         style={{

@@ -2,27 +2,40 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { users } from "../data/mockData";
 
-function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+function Login({
+  username,
+  password,
+  setUsername,
+  setPassword,
+  setLoggedIn,
+  setIsAdmin,
+}) {
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
+
     if (!username && !password) {
       alert("Enter details");
       return;
-    } else if (
+    }
+
+    if (
       users.user.name.trim().toLowerCase() === username.trim().toLowerCase()
     ) {
+      setLoggedIn(true);
       alert(`Welcome ${users.user.name}!`);
-      navigate("/movies");
+      navigate("/dashboard");
     } else if (
       users.admin.name.trim().toLowerCase() === username.trim().toLowerCase()
     ) {
+      setLoggedIn(true);
+      setIsAdmin(true);
       alert(`Welcome ${users.admin.name}!`);
-      navigate("/dashboard");
+      navigate("/admin");
     }
+    setUsername("");
+    setPassword("");
   }
 
   return (

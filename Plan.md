@@ -90,11 +90,11 @@ export const users = {
 
 **Tasks:**
 
-- [X] Create mock data file (copy-paste provided code)
-- [X] Set up BrowserRouter in main.jsx (2 line change)
-- [X] Create 4 basic `page` components (simple copy-paste templates)
-- [X] Add basic routes in App.jsx
-- [X] Create Navigation `component` with Links
+- [x] Create mock data file (copy-paste provided code)
+- [x] Set up BrowserRouter in main.jsx (2 line change)
+- [x] Create 4 basic `page` components (simple copy-paste templates)
+- [x] Add basic routes in App.jsx
+- [x] Create Navigation `component` with Links
 
 **Pre-Built Templates (Copy-Paste):**
 
@@ -145,10 +145,10 @@ export default Navigation
 
 **Tasks:**
 
-- [X] Update Movies page to show movie list from data
-- [X] Add Links to individual movies
-- [X] Create MovieDetail page with useParams
-- [X] Add basic navigation between pages
+- [x] Update Movies page to show movie list from data
+- [x] Add Links to individual movies
+- [x] Create MovieDetail page with useParams
+- [x] Add basic navigation between pages
 
 **Simple Code (Copy-Paste):**
 
@@ -203,10 +203,10 @@ export default MovieDetail
 
 **Tasks:**
 
-- [X] Add basic search to Movies page
-- [X] Use useState for search input
-- [X] Filter movies by title only
-- [X] No URL updates needed (keep it simple)
+- [x] Add basic search to Movies page
+- [x] Use useState for search input
+- [x] Filter movies by title only
+- [x] No URL updates needed (keep it simple)
 
 **Simple Code:**
 
@@ -251,10 +251,10 @@ export default Movies;
 
 **Tasks:**
 
-- [X] Create simple login form
-- [X] Add useState for username/password
-- [X] Use basic if/else for authentication
-- [X] Add useNavigate for redirect after login
+- [x] Create simple login form
+- [x] Add useState for username/password
+- [x] Use basic if/else for authentication
+- [x] Add useNavigate for redirect after login
 
 **Simple Code:**
 
@@ -309,9 +309,9 @@ export default Login;
 
 **Tasks:**
 
-- [ ] Add back button to MovieDetail
-- [ ] Update Navigation to use NavLink with basic styling
-- [ ] Add simple movie counter on Home page
+- [x] Add back button to MovieDetail
+- [x] Update Navigation to use NavLink with basic styling
+- [x] Add simple movie counter on Home page
 
 **Simple Code:**
 
@@ -357,7 +357,6 @@ function Navigation() {
   )
 }
 export default Navigation
-```
 
 {user.role === "admin" && <Link to="/dashboard/admin">Admin Panel</Link>}
 <button onClick={onLogout}>Logout</button>
@@ -367,7 +366,7 @@ export default Navigation
 );
 }
 
-````
+```
 
 **Test:** Login as admin/123, access admin panel
 
@@ -375,13 +374,13 @@ export default Navigation
 
 ## ✅ Success Criteria (Beginner-Friendly)
 
-- [ ] **Basic routing** works between Home, Movies, Login pages
-- [ ] **Movie list** displays from mock data
-- [ ] **Individual movie details** show when clicking links
-- [ ] **Simple search** filters movies by title
-- [ ] **Login form** accepts credentials and navigates
-- [ ] **Navigation links** work throughout the app
-- [ ] **404 handling** shows for invalid routes
+- [x] **Basic routing** works between Home, Movies, Login pages
+- [x] **Movie list** displays from mock data
+- [x] **Individual movie details** show when clicking links
+- [x] **Simple search** filters movies by title
+- [x] **Login form** accepts credentials and navigates
+- [x] **Navigation links** work throughout the app
+- [x] **404 handling** shows for invalid routes
 
 ## 🎯 Core React Router Concepts Covered
 
@@ -395,6 +394,7 @@ export default Navigation
 ✅ **NavLink** - Active link styling (bonus)
 
 **Advanced concepts removed for beginner focus:**
+
 - Layout Components with Outlet
 - Nested Routes
 - Route Protection
@@ -422,7 +422,7 @@ export default Navigation
 <BrowserRouter>
   <App />
 </BrowserRouter>
-````
+```
 
 **Parameters undefined?**
 
