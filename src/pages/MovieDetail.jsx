@@ -1,10 +1,12 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { movies } from "../data/mockData";
 
 function MovieDetail() {
-  const { id } = useParams();
-  const selectedMovie = movies.find((movie) => movie.id === parseInt(id));
+  const { title } = useParams();
+  const selectedMovie = movies.find((movie) => movie.title === title);
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location)
 
   function handleBack() {
     navigate(-1);
@@ -16,6 +18,10 @@ function MovieDetail() {
 
   return (
     <div>
+      {location.state?.from && <p>Came from: {location.state.from} page</p>}
+      {location.state?.search && (
+        <p>Previous search: "{location.state.search}"</p>
+      )}
       <div>
         <button onClick={handleBack}>Back to Movies</button>
       </div>

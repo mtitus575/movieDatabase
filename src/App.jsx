@@ -34,23 +34,23 @@ function App() {
           >
             <Route index element={<Home />} />
             <Route path="movies" element={<Movies />} />
-            <Route path="movies/:id" element={<MovieDetail />} />
+            <Route path="movies/:title" element={<MovieDetail />} />
 
-            {loggedIn && isAdmin && (
-              <Route
-                path="admin"
-                element={
-                  <Admin loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-                }
-              />
-            )}
+            {/*Nested Route */}
+            <Route
+              path="dashboard"
+              element={<UserDashboard setLoggedIn={setLoggedIn} />}
+            >
+              {isAdmin && (
+                <Route
+                  path="admin"
+                  element={
+                    <Admin loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+                  }
+                />
+              )}
+            </Route>
 
-            {loggedIn && (
-              <Route
-                path="dashboard"
-                element={<UserDashboard setLoggedIn={setLoggedIn} />}
-              ></Route>
-            )}
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : (

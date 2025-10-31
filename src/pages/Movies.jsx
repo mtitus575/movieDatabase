@@ -1,13 +1,20 @@
 import { movies } from "../data/mockData";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 function Movies() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const genre = searchParams.get("genre");
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(searchTerm.trim().toLowerCase())
-  );
+  const filteredMovies = movies.filter((movie) => {
+    const matchesSearch = movie.title
+      .toLowerCase()
+      .includes(searchTerm.trim().toLowerCase());
+    const matchesGenre = !genre || genre === movie.genre;
+
+    return matchesSearch && matchesGenre;
+  });
 
   const movieCardStyle = {
     width: "150px",
@@ -27,6 +34,18 @@ function Movies() {
         />
       </div>
       <div>
+        <button onClick={() => setSearchParams({})}>All</button>
+        <button onClick={() => setSearchParams({ genre: "sci-fi" })}>
+          Sci-Fi
+        </button>
+        <button onClick={() => setSearchParams({ genre: "drama" })}>
+          Drama
+        </button>
+        <button onClick={() => setSearchParams({ genre: "action" })}>
+          Action
+        </button>
+      </div>
+      <div>
         <span>
           Available titles: <strong>{filteredMovies.length}</strong>
         </span>
@@ -42,7 +61,11 @@ function Movies() {
       >
         {filteredMovies.map((movie) => {
           return (
-            <Link to={`/movies/${movie.id}`} key={movie.id}>
+            <Link
+              to={`/movies/${movie.title}`}
+              state={{ from: "MoviePage", search: searchTerm }}
+              key={movie.title}
+            >
               <div style={movieCardStyle}>
                 <h4>{movie.title}</h4>
                 <p>

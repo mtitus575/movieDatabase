@@ -453,9 +453,9 @@ import Layout from "./components/Layout";
 
 **Tasks:**
 
-- [ ] Make admin route nested under dashboard
-- [ ] Add Outlet to UserDashboard
-- [ ] Test admin panel appears within dashboard
+- [X] Make admin route nested under dashboard
+- [X] Add Outlet to UserDashboard
+- [X] Test admin panel appears within dashboard
 
 **Simple Code:**
 
@@ -490,9 +490,9 @@ export default UserDashboard;
 
 **Tasks:**
 
-- [ ] Add genre filter buttons to Movies page
-- [ ] Use useSearchParams for URL updates
-- [ ] Filter movies by both search and genre
+- [X] Add genre filter buttons to Movies page
+- [X] Use useSearchParams for URL updates
+- [X] Filter movies by both search and genre
 
 **Simple Code:**
 
@@ -559,9 +559,9 @@ export default Movies;
 
 **Tasks:**
 
-- [ ] Pass state when navigating to MovieDetail
-- [ ] Display previous page context in MovieDetail
-- [ ] Show search term if coming from search
+- [X] Pass state when navigating to MovieDetail
+- [X] Display previous page context in MovieDetail
+- [X] Show search term if coming from search
 
 **Simple Code:**
 

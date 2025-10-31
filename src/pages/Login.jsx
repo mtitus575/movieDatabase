@@ -32,7 +32,7 @@ function Login({
       setLoggedIn(true);
       setIsAdmin(true);
       alert(`Welcome ${users.admin.name}!`);
-      navigate("/admin");
+      navigate("/dashboard/admin");
     }
     setUsername("");
     setPassword("");
