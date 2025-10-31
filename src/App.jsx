@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import MovieDetail from "./pages/MovieDetail";
 import Admin from "./pages/Admin";
 import UserDashboard from "./pages/UserDashboard";
+import Layout from "./components/Layout";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -19,36 +20,54 @@ function App() {
 
   return (
     <>
-      <Navigation loggedIn={loggedIn} setLoggedIn={setLoggedIn} isAdmin={isAdmin} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="movies" element={<Movies />} />
-        <Route path="movies/:id" element={<MovieDetail />} />
-        <Route
-          path="login"
-          element={
-            <Login
-              username={username}
-              password={password}
-              setPassword={setPassword}
-              setUsername={setUsername}
-              setLoggedIn={setLoggedIn}
-              setIsAdmin={setIsAdmin}
-            />
-          }
-        />
-        {loggedIn && isAdmin && (
+        {loggedIn ? (
           <Route
-            path="admin"
-            element={<Admin loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+            path="/"
+            element={
+              <Layout
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
+                isAdmin={isAdmin}
+              />
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path="movies" element={<Movies />} />
+            <Route path="movies/:id" element={<MovieDetail />} />
+
+            {loggedIn && isAdmin && (
+              <Route
+                path="admin"
+                element={
+                  <Admin loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+                }
+              />
+            )}
+
+            {loggedIn && (
+              <Route
+                path="dashboard"
+                element={<UserDashboard setLoggedIn={setLoggedIn} />}
+              ></Route>
+            )}
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        ) : (
+          <Route
+            path="*"
+            element={
+              <Login
+                username={username}
+                password={password}
+                setPassword={setPassword}
+                setUsername={setUsername}
+                setLoggedIn={setLoggedIn}
+                setIsAdmin={setIsAdmin}
+              />
+            }
           />
         )}
-
-        {loggedIn && !isAdmin && (
-          <Route path="dashboard" element={<UserDashboard setLoggedIn={setLoggedIn} />} />
-        )}
-
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

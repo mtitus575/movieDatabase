@@ -63,7 +63,7 @@ function Navigation({ loggedIn, isAdmin, setLoggedIn }) {
       )}
       {loggedIn && isAdmin && (
         <NavLink
-          to="admin"
+          to="dashboard/admin"
           style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
         >
           Admin

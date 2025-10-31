@@ -393,13 +393,282 @@ export default Navigation
 ✅ **404 Handling** - Catch-all routes
 ✅ **NavLink** - Active link styling (bonus)
 
-**Advanced concepts removed for beginner focus:**
+---
 
-- Layout Components with Outlet
-- Nested Routes
-- Route Protection
-- Query Parameters
-- Location State
+## 🚀 Advanced React Router Concepts (Optional - 20 Minutes)
+
+> **Note:** Complete the above 5 checkpoints first. These advanced concepts build on the foundation.
+
+### **Checkpoint 6: Layout Components & Outlet (5 mins)**
+
+**Tasks:**
+
+- [x] Create Layout component with Outlet
+- [x] Update App.jsx to use Layout wrapper
+- [x] Move Navigation to Layout for shared header
+
+**Simple Code:**
+
+```jsx
+// Create src/components/Layout.jsx
+import { Outlet } from "react-router-dom";
+import Navigation from "./Navigation";
+
+function Layout() {
+  return (
+    <div>
+      <Navigation />
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
+}
+export default Layout;
+
+// Update App.jsx - Wrap routes in Layout
+import Layout from "./components/Layout";
+
+// Replace your existing routes with:
+{
+  isLoggedIn ? (
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="movies" element={<Movies />} />
+      <Route path="movies/:id" element={<MovieDetail />} />
+      <Route path="dashboard" element={<UserDashboard />} />
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  ) : (
+    <Route path="*" element={<Login />} />
+  );
+}
+```
+
+**Test:** Navigation should appear automatically on all pages
+
+---
+
+### **Checkpoint 7: Nested Routes (5 mins)**
+
+**Tasks:**
+
+- [ ] Make admin route nested under dashboard
+- [ ] Add Outlet to UserDashboard
+- [ ] Test admin panel appears within dashboard
+
+**Simple Code:**
+
+```jsx
+// Update App.jsx - Make admin nested
+<Route path="dashboard" element={<UserDashboard />}>
+  {user?.role === "admin" && <Route path="admin" element={<Admin />} />}
+</Route>;
+
+// Update src/pages/UserDashboard.jsx - Add Outlet
+import { Outlet, Link } from "react-router-dom";
+
+function UserDashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <p>Welcome, {user?.name}!</p>
+      {user?.role === "admin" && <Link to="/dashboard/admin">Admin Panel</Link>}
+      <button onClick={onLogout}>Logout</button>
+      <Outlet />
+    </div>
+  );
+}
+export default UserDashboard;
+```
+
+**Test:** Admin link should show admin content below dashboard content
+
+---
+
+### **Checkpoint 8: Query Parameters (5 mins)**
+
+**Tasks:**
+
+- [ ] Add genre filter buttons to Movies page
+- [ ] Use useSearchParams for URL updates
+- [ ] Filter movies by both search and genre
+
+**Simple Code:**
+
+```jsx
+// Update src/pages/Movies.jsx - Add genre filtering
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { movies } from "../data/mockData";
+
+function Movies() {
+  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const genre = searchParams.get("genre");
+
+  const filteredMovies = movies.filter((movie) => {
+    const matchesSearch = movie.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesGenre = !genre || movie.genre === genre;
+    return matchesSearch && matchesGenre;
+  });
+
+  return (
+    <div>
+      <h1>Movies</h1>
+      <input
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search movies..."
+      />
+
+      <div>
+        <button onClick={() => setSearchParams({})}>All</button>
+        <button onClick={() => setSearchParams({ genre: "sci-fi" })}>
+          Sci-Fi
+        </button>
+        <button onClick={() => setSearchParams({ genre: "drama" })}>
+          Drama
+        </button>
+        <button onClick={() => setSearchParams({ genre: "action" })}>
+          Action
+        </button>
+      </div>
+
+      <p>Found {filteredMovies.length} movies</p>
+      {filteredMovies.map((movie) => (
+        <div key={movie.id}>
+          <Link to={`/movies/${movie.id}`} state={{ from: "movies", search }}>
+            {movie.title} ({movie.year}) - {movie.genre}
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+}
+export default Movies;
+```
+
+**Test:** Click genre buttons, URL should show ?genre=sci-fi
+
+---
+
+### **Checkpoint 9: Location State (3 mins)**
+
+**Tasks:**
+
+- [ ] Pass state when navigating to MovieDetail
+- [ ] Display previous page context in MovieDetail
+- [ ] Show search term if coming from search
+
+**Simple Code:**
+
+```jsx
+// Update src/pages/MovieDetail.jsx - Show location state
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { movies } from "../data/mockData";
+
+function MovieDetail() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const movie = movies.find((m) => m.id === parseInt(id));
+
+  if (!movie) return <div>Movie not found</div>;
+
+  return (
+    <div>
+      <button onClick={() => navigate(-1)}>← Back</button>
+      {location.state?.from && <p>Came from: {location.state.from} page</p>}
+      {location.state?.search && (
+        <p>Previous search: "{location.state.search}"</p>
+      )}
+      <h1>{movie.title}</h1>
+      <p>Genre: {movie.genre}</p>
+      <p>Year: {movie.year}</p>
+    </div>
+  );
+}
+export default MovieDetail;
+```
+
+**Test:** Search for a movie, click it, should show "Came from: movies page"
+
+---
+
+### **Checkpoint 10: Route Protection (2 mins)**
+
+**Tasks:**
+
+- [ ] Create ProtectedRoute component
+- [ ] Wrap dashboard routes with protection
+- [ ] Test unauthorized access redirects
+
+**Simple Code:**
+
+```jsx
+// Create src/components/ProtectedRoute.jsx
+import { Navigate } from "react-router-dom";
+
+function ProtectedRoute({ children, isAllowed, redirectTo = "/login" }) {
+  return isAllowed ? children : <Navigate to={redirectTo} replace />;
+}
+export default ProtectedRoute;
+
+// Update App.jsx (optional enhancement)
+import ProtectedRoute from "./components/ProtectedRoute";
+
+<Route
+  path="dashboard"
+  element={
+    <ProtectedRoute isAllowed={isLoggedIn}>
+      <UserDashboard />
+    </ProtectedRoute>
+  }
+>
+  <Route
+    path="admin"
+    element={
+      <ProtectedRoute
+        isAllowed={user?.role === "admin"}
+        redirectTo="/dashboard"
+      >
+        <Admin />
+      </ProtectedRoute>
+    }
+  />
+</Route>;
+```
+
+**Test:** Try accessing /dashboard without login, should redirect
+
+---
+
+## ✅ Advanced Success Criteria
+
+- [ ] **Layout with Outlet** - Navigation appears on all pages automatically
+- [ ] **Nested Routes** - Admin panel appears within dashboard
+- [ ] **Query Parameters** - Genre filtering updates URL (?genre=sci-fi)
+- [ ] **Location State** - Movie detail shows previous page context
+- [ ] **Route Protection** - Unauthorized access redirects properly
+
+## 🎯 Complete React Router Mastery
+
+✅ **BrowserRouter** - App setup  
+✅ **Routes & Route** - Page navigation  
+✅ **Link & NavLink** - Navigation between pages  
+✅ **useParams** - Dynamic movie details  
+✅ **useNavigate** - Programmatic navigation  
+✅ **404 Handling** - Catch-all routes  
+✅ **Layout Components with Outlet** - Shared layouts  
+✅ **Nested Routes** - Routes within routes  
+✅ **Query Parameters** - URL state management  
+✅ **Location State** - Context passing between pages  
+✅ **Route Protection** - Access control and redirects
+
+**Total Project Time: 100 minutes** (80 mins basic + 20 mins advanced)
 
 ---
 

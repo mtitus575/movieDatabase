@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 function UserDashboard({ setLoggedIn }) {
   const navigate = useNavigate();
@@ -12,6 +12,9 @@ function UserDashboard({ setLoggedIn }) {
     <div>
       <h3>Welcome to your dashboard user!</h3>
       <button onClick={handleLogout}>Logout</button>
+      <div>
+        <Outlet/>
+      </div>
     </div>
   );
 }
